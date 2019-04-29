@@ -1,0 +1,9 @@
+python3 freeze_graph.py \
+--input_graph=models/train/test/model-final.pbtxt \
+--input_checkpoint=models/train/test/model-final-1903 \
+--output_graph=models/train/test/frozen-model.pb \
+--output_node_names=Openpose/concat_stage7 \
+--input_binary=False
+
+
+
