@@ -14,8 +14,7 @@ try:
     from armv7l.openvino.inference_engine import IENetwork, IEPlugin
 except:
     from openvino.inference_engine import IENetwork, IEPlugin
-from tf_pose.estimator import TfPoseEstimator
-from tf_pose.tensblur.smoother import Smoother
+
 
 def getKeypoints(probMap, threshold=0.1):
 
