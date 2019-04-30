@@ -26,11 +26,11 @@ I will make his implementation even faster with CPU only.
 $ git clone https://github.com/PINTO0309/MobileNetV2-PoseEstimation.git
 $ cd MobileNetV2-PoseEstimation
 ```
-CPU Mode  
+**CPU Mode**  
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-sync.py -d CPU
 ```
-NCS2 Mode  
+**NCS2 Mode**  
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-sync.py -d MYRIAD
 ```
