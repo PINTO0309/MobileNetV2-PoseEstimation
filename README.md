@@ -2,6 +2,13 @@
 
 Apr 29, 2019 Under construction
 
+## Introduction
+This repository has its own implementation, impressed by ildoonet's achievements.  
+Thank you, **[ildoonet](https://github.com/ildoonet)**.  
+**https://github.com/ildoonet/tf-pose-estimation.git**  
+  
+I will make his implementation even faster with CPU only.  
+
 ## Environment
 - Ubuntu 16.04
 - OpenVINO 2019 R1.0.1
