@@ -8,7 +8,7 @@ Apr 29, 2019 Under construction
 - Tensorflow v1.12.0 + Tensorflow Lite
 - USB Camera
 
-## Core i7 + OpenVINO + Openpose + Sync mode (disabled GPU)
+## Core i7 only + OpenVINO + Openpose + Sync mode (disabled GPU)
 ![01](media/01.gif)  
 
 ## Reference articles, Very Thanks!!
