@@ -10,7 +10,7 @@ Thank you, **[ildoonet](https://github.com/ildoonet)**.
 I will make his implementation even faster with CPU only.  
 
 ## Environment
-- Ubuntu 16.04
+- Ubuntu 16.04 x86_64
 - OpenVINO 2019 R1.0.1
 - Tensorflow v1.12.0 + Tensorflow Lite
 - USB Camera
@@ -20,6 +20,20 @@ I will make his implementation even faster with CPU only.
 
 ## Core i7 only + OpenVINO + Openpose + Sync mode (disabled GPU)
 ![01](media/01.gif)  
+
+## Usage
+```console
+$ git clone https://github.com/PINTO0309/MobileNetV2-PoseEstimation.git
+$ cd MobileNetV2-PoseEstimation
+```
+CPU Mode  
+```console
+$ python3 openvino-usbcamera-cpu-ncs2-sync.py -d CPU
+```
+NCS2 Mode  
+```console
+$ python3 openvino-usbcamera-cpu-ncs2-sync.py -d MYRIAD
+```
 
 ## Reference articles, Very Thanks!!
 **https://github.com/ildoonet/tf-pose-estimation.git**  
