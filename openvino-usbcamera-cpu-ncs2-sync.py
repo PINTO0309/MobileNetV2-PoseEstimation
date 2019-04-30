@@ -128,7 +128,6 @@ def getPersonwiseKeypoints(valid_pairs, invalid_pairs):
 fps = ""
 detectfps = ""
 framecount = 0
-detectframecount = 0
 time1 = 0
 
 camera_width = 320
@@ -241,7 +240,6 @@ try:
         if framecount >= 15:
             fps = "(Playback) {:.1f} FPS".format(time1/15)
             framecount = 0
-            detectframecount = 0
             time1 = 0
         t2 = time.perf_counter()
         elapsedTime = t2-t1
