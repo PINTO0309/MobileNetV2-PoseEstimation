@@ -170,6 +170,10 @@ inputs = net.inputs["image"]
 h = inputs.shape[2] #368
 w = inputs.shape[3] #432
 
+keypoints_list = np.zeros((0, 3))
+threshold = 0.1
+nPoints = 18
+
 try:
 
     while True:
@@ -192,10 +196,7 @@ try:
         outputs = exec_net.infer(inputs={input_blob: prepimg})["Openpose/concat_stage7"]
 
         detected_keypoints = []
-        keypoints_list = np.zeros((0, 3))
         keypoint_id = 0
-        threshold = 0.1
-        nPoints = 18
 
         for part in range(nPoints):
             probMap = outputs[0, part, :, :]
