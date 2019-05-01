@@ -13,6 +13,7 @@ I will make his implementation even faster with CPU only.
 - Ubuntu 16.04 x86_64
 - OpenVINO 2019 R1.0.1
 - Tensorflow v1.12.0 + Tensorflow Lite
+
 - USB Camera
 
 ## Environment construction and training procedure
