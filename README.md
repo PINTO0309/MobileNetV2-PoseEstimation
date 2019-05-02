@@ -1,6 +1,7 @@
 # MobileNetV2-PoseEstimation
 
-Apr 29, 2019 Under construction
+Apr 29, 2019 Under construction  
+**[Caution] The behavior of NCS2 is very unstable. It looks like a bug in the API but is not detected properly.**
 
 ## Introduction
 This repository has its own implementation, impressed by ildoonet's achievements.  
