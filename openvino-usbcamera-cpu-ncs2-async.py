@@ -424,7 +424,7 @@ if __name__ == '__main__':
     try:
 
         mp.set_start_method('forkserver')
-        frameBuffer = mp.Queue(4) #10
+        frameBuffer = mp.Queue(4)
         results = mp.Queue()
 
         # Start detection MultiStick
