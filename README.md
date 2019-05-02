@@ -40,9 +40,13 @@ $ python3 openvino-usbcamera-cpu-ncs2-sync.py -d MYRIAD
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-async.py -d CPU
 ```
-**NCS2 - Async Mode**  
+**NCS2 - Async - Single Stick Mode**  
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-async.py -d MYRIAD
+```
+**NCS2 - Async - Multi Stick Mode**  
+```console
+$ python3 openvino-usbcamera-cpu-ncs2-async.py -d MYRIAD -numncs 2
 ```
 ## Reference articles, Very Thanks!!
 **https://github.com/ildoonet/tf-pose-estimation.git**  
