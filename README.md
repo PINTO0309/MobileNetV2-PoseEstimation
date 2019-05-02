@@ -27,15 +27,23 @@ I will make his implementation even faster with CPU only.
 $ git clone https://github.com/PINTO0309/MobileNetV2-PoseEstimation.git
 $ cd MobileNetV2-PoseEstimation
 ```
-**CPU Mode**  
+**CPU - Sync Mode**  
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-sync.py -d CPU
 ```
-**NCS2 Mode**  
+**NCS2 - Sync Mode**  
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-sync.py -d MYRIAD
 ```
-
+  
+**CPU - Async Mode**  
+```console
+$ python3 openvino-usbcamera-cpu-ncs2-async.py -d CPU
+```
+**NCS2 - Async Mode**  
+```console
+$ python3 openvino-usbcamera-cpu-ncs2-async.py -d MYRIAD
+```
 ## Reference articles, Very Thanks!!
 **https://github.com/ildoonet/tf-pose-estimation.git**  
 **https://www.tensorflow.org/api_docs/python/tf/image/resize_area**  
