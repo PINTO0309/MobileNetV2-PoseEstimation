@@ -13,8 +13,8 @@ I will make his implementation even faster with CPU only.
 - Ubuntu 16.04 x86_64
 - OpenVINO 2019 R1.0.1
 - Tensorflow v1.12.0 + Tensorflow Lite
-
 - USB Camera
+- Python 3.5
 
 ## Environment construction and training procedure
 **[Learn "Openpose" from scratch with MobileNetv2 + MS-COCO and deploy it to OpenVINO/TensorflowLite Part.1](https://qiita.com/PINTO/items/2316882e18715c6f138c)**  
