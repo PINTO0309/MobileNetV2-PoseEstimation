@@ -392,21 +392,31 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--device", help="Specify the target device to infer on; CPU, GPU, MYRIAD is acceptable. (Default=CPU)", default="CPU", type=str)
     parser.add_argument('-numncs','--numberofncs',dest='number_of_ncs',type=int,default=1,help='Number of NCS. (Default=1)')
+    parser.add_argument("-b", "--boost", help="Setting it to True will make it run faster instead of sacrificing accuracy. (Default=False)", default=False, type=bool)
     args = parser.parse_args()
 
     device = args.device
 
     if "CPU" == device:
         number_of_ncs = 1
-        model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP32/frozen-model.xml"
+        if args.boost == False:
+            model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP32/frozen-model.xml"
+        else:
+            model_xml = "models/train/test/openvino/mobilenet_v2_0.5_224/FP32/frozen-model.xml"
 
     elif "MYRIAD" == device:
         number_of_ncs = args.number_of_ncs
-        model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
+        if args.boost == False:
+            model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
+        else:
+            model_xml = "models/train/test/openvino/mobilenet_v2_0.5_224/FP16/frozen-model.xml"
 
     elif "GPU" == device:
         number_of_ncs = 1
-        model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
+        if args.boost == False:
+            model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
+        else:
+            model_xml = "models/train/test/openvino/mobilenet_v2_0.5_224/FP16/frozen-model.xml"
 
     else:
         print("Specify the target device to infer on; CPU, GPU, MYRIAD is acceptable.")

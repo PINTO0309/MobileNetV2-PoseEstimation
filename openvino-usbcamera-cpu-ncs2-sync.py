@@ -145,6 +145,7 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--device", help="Specify the target device to infer on; CPU, GPU, MYRIAD is acceptable. (Default=CPU)", default="CPU", type=str)
+parser.add_argument("-b", "--boost", help="Setting it to True will make it run faster instead of sacrificing accuracy. (Default=False)", default=False, type=bool)
 args = parser.parse_args()
 
 plugin = IEPlugin(device=args.device)
@@ -152,10 +153,16 @@ plugin = IEPlugin(device=args.device)
 if "CPU" == args.device:
     if platform.processor() == "x86_64":
         plugin.add_cpu_extension("lib/libcpu_extension.so")
-    model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP32/frozen-model.xml"
+    if args.boost == False:
+        model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP32/frozen-model.xml"
+    else:
+        model_xml = "models/train/test/openvino/mobilenet_v2_0.5_224/FP32/frozen-model.xml"
 
 elif "GPU" == args.device or "MYRIAD" == args.device:
-    model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
+    if args.boost == False:
+        model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
+    else:
+        model_xml = "models/train/test/openvino/mobilenet_v2_0.5_224/FP16/frozen-model.xml"
 
 else:
     print("Specify the target device to infer on; CPU, GPU, MYRIAD is acceptable.")
