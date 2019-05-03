@@ -24,8 +24,10 @@ I will make his implementation even faster with CPU only.
 ![01](media/01.gif)  
 ## NCS2 x1 + OpenVINO + Openpose Large model + Async + Normal mode
 ![02](media/02.gif)  
-## NCS2 x1 + OpenVINO + Openpose Small model + Async + Boost mode
+## Core i7 only + OpenVINO + Openpose Small model + Sync + Boost mode (disabled GPU)
 ![03](media/03.gif)  
+## NCS2 x1 + OpenVINO + Openpose Small model + Async + Boost mode
+![04](media/04.gif)  
 
 ## Usage
 ```console
