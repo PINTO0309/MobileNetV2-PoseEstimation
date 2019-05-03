@@ -1,7 +1,6 @@
 # MobileNetV2-PoseEstimation
-
-Apr 29, 2019 Under construction  
-**[Caution] The behavior of RraspberryPi+NCS2 is very unstable.**
+**[Caution] The behavior of RraspberryPi+NCS2 is very unstable.**  
+**[Caution] The behavior of Tensorflow Lite+CPU is unstable.**  
 
 ## Introduction
 This repository has its own implementation, impressed by ildoonet's achievements.  
