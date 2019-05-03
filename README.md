@@ -22,8 +22,10 @@ I will make his implementation even faster with CPU only.
 
 ## Core i7 only + OpenVINO + Openpose Large model + Sync mode (disabled GPU)
 ![01](media/01.gif)  
-## NCS2 x1 + OpenVINO + Openpose Large model + Async mode
+## NCS2 x1 + OpenVINO + Openpose Large model + Async + Normal mode
 ![02](media/02.gif)  
+## NCS2 x1 + OpenVINO + Openpose Small model + Async + Boost mode
+![03](media/03.gif)  
 
 ## Usage
 ```console
@@ -50,6 +52,10 @@ $ python3 openvino-usbcamera-cpu-ncs2-async.py -d MYRIAD
 **NCS2 - Async - Multi Stick Mode**  
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-async.py -d MYRIAD -numncs 2
+```
+**NCS2 - Async - Single Stick + Boost Mode**  
+```console
+$ python3 openvino-usbcamera-cpu-ncs2-async.py -d MYRIAD -b True
 ```
 ## Reference articles, Very Thanks!!
 **https://github.com/ildoonet/tf-pose-estimation.git**  
