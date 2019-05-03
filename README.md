@@ -62,6 +62,10 @@ $ python3 openvino-usbcamera-cpu-ncs2-async.py -d MYRIAD -numncs 2
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-async.py -d MYRIAD -b True
 ```
+**GPU (Intel HD series only) - Async - Boost Mode**  
+```console
+$ python3 openvino-usbcamera-cpu-ncs2-async.py -d GPU -b True
+```
 ## Reference articles, Very Thanks!!
 **https://github.com/ildoonet/tf-pose-estimation.git**  
 **https://www.tensorflow.org/api_docs/python/tf/image/resize_area**  
