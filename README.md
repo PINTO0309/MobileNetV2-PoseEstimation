@@ -18,6 +18,8 @@ I will make his implementation even faster with CPU only.
 
 ## Environment construction and training procedure
 **[Learn "Openpose" from scratch with MobileNetv2 + MS-COCO and deploy it to OpenVINO/TensorflowLite Part.1](https://qiita.com/PINTO/items/2316882e18715c6f138c)**  
+  
+**[Learn "Openpose" from scratch with MobileNetv2 + MS-COCO and deploy it to OpenVINO/TensorflowLite (Inference by OpenVINO/NCS2) Part.2](https://qiita.com/PINTO/items/c1889317bc16534a75cf)**
 
 ## Core i7 only + OpenVINO + Openpose Large model + Sync mode (disabled GPU)
 ![01](media/01.gif)  
