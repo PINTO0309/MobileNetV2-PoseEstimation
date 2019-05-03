@@ -38,6 +38,10 @@ $ cd MobileNetV2-PoseEstimation
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-sync.py -d CPU
 ```
+**CPU - Sync + Boost Mode**  
+```console
+$ python3 openvino-usbcamera-cpu-ncs2-sync.py -d CPU -b True
+```
 **NCS2 - Sync Mode**  
 ```console
 $ python3 openvino-usbcamera-cpu-ncs2-sync.py -d MYRIAD
