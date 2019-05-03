@@ -152,10 +152,10 @@ plugin = IEPlugin(device=args.device)
 if "CPU" == args.device:
     if platform.processor() == "x86_64":
         plugin.add_cpu_extension("lib/libcpu_extension.so")
-    model_xml = "models/train/test/openvino/FP32/frozen-model.xml"
+    model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP32/frozen-model.xml"
 
 elif "GPU" == args.device or "MYRIAD" == args.device:
-    model_xml = "models/train/test/openvino/FP16/frozen-model.xml"
+    model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
 
 else:
     print("Specify the target device to infer on; CPU, GPU, MYRIAD is acceptable.")
@@ -182,8 +182,10 @@ try:
         if not ret:
             break
 
-        new_w = int(color_image.shape[1]  * min(w/color_image.shape[1], h/color_image.shape[0]))
-        new_h = int(color_image.shape[0] * min(w/color_image.shape[1], h/color_image.shape[0]))
+        colw = color_image.shape[1]
+        colh = color_image.shape[0]
+        new_w = int(colw * min(w/colw, h/colh))
+        new_h = int(colh * min(w/colw, h/colh))
 
         resized_image = cv2.resize(color_image, (new_w, new_h), interpolation = cv2.INTER_CUBIC)
         canvas = np.full((h, w, 3), 128)

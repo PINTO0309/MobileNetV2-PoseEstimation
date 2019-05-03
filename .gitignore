@@ -1,1 +1,3 @@
 BK_*
+*.pyc
+__pycache__

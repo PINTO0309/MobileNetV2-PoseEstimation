@@ -398,15 +398,15 @@ if __name__ == '__main__':
 
     if "CPU" == device:
         number_of_ncs = 1
-        model_xml = "models/train/test/openvino/FP32/frozen-model.xml"
+        model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP32/frozen-model.xml"
 
     elif "MYRIAD" == device:
         number_of_ncs = args.number_of_ncs
-        model_xml = "models/train/test/openvino/FP16/frozen-model.xml"
+        model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
 
     elif "GPU" == device:
         number_of_ncs = 1
-        model_xml = "models/train/test/openvino/FP16/frozen-model.xml"
+        model_xml = "models/train/test/openvino/mobilenet_v2_1.4_224/FP16/frozen-model.xml"
 
     else:
         print("Specify the target device to infer on; CPU, GPU, MYRIAD is acceptable.")
