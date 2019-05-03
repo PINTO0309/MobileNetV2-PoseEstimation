@@ -12,7 +12,7 @@ I will make his implementation even faster with CPU only.
 
 ## Environment
 - Ubuntu 16.04 x86_64
-- OpenVINO 2019 R1.0.1
+- **[OpenVINO 2019 R1.0.1](https://github.com/PINTO0309/OpenVINO-bin.git)**
 - **[Tensorflow v1.12.0 + Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin.git)**
 - USB Camera
 - Python 3.5
