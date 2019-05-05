@@ -1,6 +1,8 @@
 # MobileNetV2-PoseEstimation
 **[Caution] The behavior of RraspberryPi+NCS2 is very unstable.**  
 **[Caution] The behavior of Tensorflow Lite+CPU is unstable.**  
+**[Caution] The Google Edge TPU program and model are under construction.**  
+
 
 ## Introduction
 This repository has its own implementation, impressed by ildoonet's achievements.  
@@ -14,6 +16,8 @@ I will make his implementation even faster with CPU only.
 - **[OpenVINO 2019 R1.0.1](https://github.com/PINTO0309/OpenVINO-bin.git)**
 - **[Tensorflow v1.12.0 + Tensorflow Lite](https://github.com/PINTO0309/Tensorflow-bin.git)**
 - USB Camera
+- Neural Compute Stick 2 (NCS2)
+- Google Edge TPU
 - Python 3.5
 
 ## Environment construction and training procedure
