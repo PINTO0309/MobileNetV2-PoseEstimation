@@ -1,7 +1,6 @@
 import cv2, sys, time
 import numpy as np
 import tensorflow as tf
-from PIL import Image
 
 
 def getKeypoints(probMap, threshold=0.1):
@@ -119,7 +118,6 @@ fps = ""
 framecount = 0
 time1 = 0
 elapsedTime = 0
-index_void = 2
 num_threads = 4
 
 keypointsMapping = ['Nose', 'Neck', 'R-Sho', 'R-Elb', 'R-Wr', 'L-Sho', 'L-Elb', 'L-Wr', 'R-Hip', 'R-Knee', 'R-Ank', 'L-Hip', 'L-Knee', 'L-Ank', 'R-Eye', 'L-Eye', 'R-Ear', 'L-Ear']
