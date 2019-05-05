@@ -1,7 +1,7 @@
 # MobileNetV2-PoseEstimation
 **[Caution] The behavior of RraspberryPi+NCS2 is very unstable.**  
 **[Caution] The behavior of Tensorflow Lite+CPU is unstable.**  
-**[Caution] The Google Edge TPU program and model are under construction.**  
+**[Caution] May 06, 2019, The Google Edge TPU program and model are under construction.**  
 
 
 ## Introduction
