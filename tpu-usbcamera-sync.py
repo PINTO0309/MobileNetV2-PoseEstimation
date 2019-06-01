@@ -124,7 +124,7 @@ def getPersonwiseKeypoints(valid_pairs, invalid_pairs, keypoints_list):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", default="models/train/test/tpu/mobilenet_v2_0.75_224/output_tflite_graph_edgetpu.tflite", help="Path of the inference model.")
+    parser.add_argument("--model", default="models/train/test/tpu/mobilenet_v2_1.4_224/output_tflite_graph_edgetpu.tflite", help="Path of the inference model.")
     parser.add_argument("--usbcamno", type=int, default=0, help="USB Camera number.")
     parser.add_argument("--usbcamfps", type=int, default=30, help="USB Camera FPS.")
     args = parser.parse_args()
@@ -165,10 +165,12 @@ def main():
 
         resized_image = cv2.resize(color_image, (new_w, new_h), interpolation = cv2.INTER_CUBIC)
         prepimg = resized_image[:, :, ::-1].copy()
-        canvas = np.full((h, w, 3), 128)
-        canvas[(h - new_h)//2:(h - new_h)//2 + new_h,(w - new_w)//2:(w - new_w)//2 + new_w, :] = resized_image
+        canvas = canvas2 = np.full((h, w, 3), 128)
+        canvas[(h - new_h)//2:(h - new_h)//2 + new_h,(w - new_w)//2:(w - new_w)//2 + new_w, :] = prepimg
+        canvas2[(h - new_h)//2:(h - new_h)//2 + new_h,(w - new_w)//2:(w - new_w)//2 + new_w, :] = resized_image
 
         prepimg = np.uint8(canvas).flatten()
+        #prepimg = canvas.flatten()
 
         #tinf = time.perf_counter()
         #ans = engine.DetectWithImage(prepimg, threshold=0.5, keep_aspect_ratio=True, relative_coord=False, top_k=10)
@@ -178,8 +180,8 @@ def main():
         ans = engine.RunInference(prepimg)
         #print("len(ans)=", len(ans)) #2
         #print("ans[0]=", ans[0]) #3.071000099182129
-        #print("ans[1]=", ans[1]) #[0.04705882 0.09411765 0.04705882 ... 0.07058824 0.23529412 0.        ]
-        #print("len(ans[1])=", len(ans[1])) #141588=1x46x54x57 or 1x57x46x54
+        print("ans[1]=", ans[1]) #[0.04705882 0.09411765 0.04705882 ... 0.07058824 0.23529412 0.        ]
+        print("len(ans[1])=", len(ans[1])) #141588=1x46x54x57 or 1x57x46x54
 
         outputs = ans[1].reshape((1, 46, 54, 57)).transpose((0, 3, 1, 2)) #(1, 57, 46, 54)
         #outputs = outputs[np.newaxis, :, :, :]
@@ -191,6 +193,9 @@ def main():
         detected_keypoints = []
         keypoints_list = np.zeros((0, 3))
         keypoint_id = 0
+
+        #print("outputs.shape()=", outputs.shape)
+        #print("outputs.shape(outputs[0, 0, :, :])=", outputs[0, 0, :, :])
 
         for part in range(nPoints):
             probMap = outputs[0, part, :, :]
@@ -205,13 +210,20 @@ def main():
 
             detected_keypoints.append(keypoints_with_id)
 
-        frameClone = np.uint8(canvas.copy())
+        #print("len(detected_keypoints)=", len(detected_keypoints))
+
+        frameClone = np.uint8(canvas2.copy())
         for i in range(nPoints):
+            #print("detected_keypoints[i]=", detected_keypoints[i])
             for j in range(len(detected_keypoints[i])):
+
                 cv2.circle(frameClone, detected_keypoints[i][j][0:2], 5, colors[i], -1, cv2.LINE_AA)
 
         valid_pairs, invalid_pairs = getValidPairs(outputs, w, h, detected_keypoints)
+        #print("valid_pairs, invalid_pairs=", valid_pairs, invalid_pairs)
         personwiseKeypoints = getPersonwiseKeypoints(valid_pairs, invalid_pairs, keypoints_list)
+
+        print("personwiseKeypoints=", personwiseKeypoints)
 
         for i in range(17):
             for n in range(len(personwiseKeypoints)):

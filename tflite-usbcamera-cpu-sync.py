@@ -3,6 +3,22 @@ import numpy as np
 import tensorflow as tf
 
 
+def quantize_img(npimg):
+    npimg_q = npimg + 1.0
+    npimg_q /= (2.0 / 2 ** 8)
+    npimg_q = npimg_q.astype(np.uint8)
+    return npimg_q
+
+
+def get_scaled_img(img, targetw, targeth):
+    img_h, img_w = img.shape[:2]
+
+    if img.shape[:2] != (targetw, targeth):
+        # resize
+        img = cv2.resize(img, (targetw, targeth), interpolation=cv2.INTER_CUBIC)
+    return img
+
+
 def getKeypoints(probMap, threshold=0.1):
 
     mapSmooth = cv2.GaussianBlur(probMap, (3, 3), 0, 0)
@@ -136,16 +152,22 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 try:
     # Tensorflow v1.13.0+
 
-    #interpreter = tf.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_1.4_224/output_tflite_graph.tflite")
-    interpreter = tf.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_0.5_224/output_tflite_graph.tflite")
+    interpreter = tf.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_1.4_224/output_tflite_graph.tflite")
+    #interpreter = tf.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_1.0_224/output_tflite_graph.tflite")
+    #interpreter = tf.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_0.75_224/output_tflite_graph.tflite")
+    #interpreter = tf.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_0.75_224/output_tflite_graph_1557528575_edgetpu.tflite")
+    #interpreter = tf.lite.Interpreter(model_path="models/train/test/tflite/multi_person_mobilenet_v1_075_float.tflite")
 except:
     # Tensorflow v1.12.0-
 
-    #interpreter = tf.contrib.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_1.4_224/output_tflite_graph.tflite")
-    interpreter = tf.contrib.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_0.5_224/output_tflite_graph.tflite")
+    interpreter = tf.contrib.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_1.4_224/output_tflite_graph.tflite")
+    #interpreter = tf.contrib.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_1.0_224/output_tflite_graph.tflite")
+    #interpreter = tf.contrib.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_0.75_224/output_tflite_graph.tflite")
+    #interpreter = tf.contrib.lite.Interpreter(model_path="models/train/test/tflite/mobilenet_v2_0.75_224/output_tflite_graph_1557528575_edgetpu.tflite")
+    #interpreter = tf.contrib.lite.Interpreter(model_path="models/train/test/tflite/multi_person_mobilenet_v1_075_float.tflite")
 
 interpreter.allocate_tensors()
-interpreter.set_num_threads(int(num_threads))
+#interpreter.set_num_threads(int(num_threads))
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 input_shape = input_details[0]['shape']
@@ -171,20 +193,39 @@ while True:
     canvas = np.full((h, w, 3), 128)
     canvas[(h - new_h)//2:(h - new_h)//2 + new_h,(w - new_w)//2:(w - new_w)//2 + new_w, :] = resized_image
     prepimg = canvas
+
+    prepimg = quantize_img(prepimg)
+    prepimg = get_scaled_img(prepimg, w, h)
+
+    #prepimg = np.array(prepimg, dtype=np.float32)
+
     prepimg = prepimg[np.newaxis, :, :, :] # Batch size axis add
 
+
+
     # Estimation
-    interpreter.set_tensor(input_details[0]['index'], np.array(prepimg, dtype=np.uint8))
+    #interpreter.set_tensor(input_details[0]['index'], np.array(prepimg, dtype=np.uint8))
+    interpreter.set_tensor(input_details[0]['index'], prepimg)
     interpreter.invoke()
     outputs = interpreter.get_tensor(output_details[0]['index']) #(1, 46, 54, 57)
     outputs = outputs.transpose((0, 3, 1, 2)) #(1, 57, 46, 54)
+
+    print("outputs.shape()=", outputs.shape)
 
     # View
     detected_keypoints = []
     keypoints_list = np.zeros((0, 3))
     keypoint_id = 0
 
+    #print("outputs1=", outputs)
+    #outputs = np.array(outputs, dtype=np.float32)
+    #outputs = 8 * (outputs)
+    #print("outputs2=", outputs)
+
+
     for part in range(nPoints):
+        #print("outputs[0, part, :, :]=", outputs[0, part, :, :])
+        #print("outputs[0, part, :, :]*8=", outputs[0, part, :, :]*8)
         probMap = outputs[0, part, :, :]
         probMap = cv2.resize(probMap, (canvas.shape[1], canvas.shape[0])) # (432, 368)
         keypoints = getKeypoints(probMap, threshold)
@@ -200,7 +241,10 @@ while True:
     frameClone = np.uint8(canvas.copy())
     for i in range(nPoints):
         for j in range(len(detected_keypoints[i])):
+            print((detected_keypoints[i][j][0]), (detected_keypoints[i][j][1]))
+            #print((detected_keypoints[i][j][0]) * 8, (detected_keypoints[i][j][1]) * 8)
             cv2.circle(frameClone, detected_keypoints[i][j][0:2], 5, colors[i], -1, cv2.LINE_AA)
+            #cv2.circle(frameClone, ((detected_keypoints[i][j][0]) * 8, (detected_keypoints[i][j][1]) * 8), 5, colors[i], -1, cv2.LINE_AA)
 
     valid_pairs, invalid_pairs = getValidPairs(outputs, w, h)
     personwiseKeypoints = getPersonwiseKeypoints(valid_pairs, invalid_pairs)

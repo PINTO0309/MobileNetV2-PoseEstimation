@@ -129,10 +129,10 @@ if __name__ == '__main__':
             boundaries = [step_per_epoch * 5 * i for i, _ in range(len(lrs)) if i > 0]
             learning_rate = tf.train.piecewise_constant(global_step, boundaries, lrs)
 
-    if args.quant_delay >= 0:
-        logger.info('train using quantized mode, delay=%d' % args.quant_delay)
+    if args.quant-delay >= 0:
+        logger.info('train using quantized mode, delay=%d' % args.quant-delay)
         g = tf.get_default_graph()
-        tf.contrib.quantize.create_training_graph(input_graph=g, quant_delay=args.quant_delay)
+        tf.contrib.quantize.create_training_graph(input_graph=g, quant_delay=args.quant-delay)
 
     # optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.0005, momentum=0.9, epsilon=1e-10)
     optimizer = tf.train.AdamOptimizer(learning_rate, epsilon=1e-8)
