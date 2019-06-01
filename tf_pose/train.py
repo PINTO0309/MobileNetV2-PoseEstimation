@@ -33,13 +33,13 @@ if __name__ == '__main__':
     parser.add_argument('--imgpath', type=str, default='/data/public/rw/coco/')
     parser.add_argument('--batchsize', type=int, default=64)
     parser.add_argument('--gpus', type=int, default=4)
-    parser.add_argument('--max-epoch', type=int, default=600)
+    parser.add_argument('--maxepoch', type=int, default=600)
     parser.add_argument('--lr', type=str, default='0.001')
     parser.add_argument('--tag', type=str, default='test')
     parser.add_argument('--checkpoint', type=str, default='')
-    parser.add_argument('--input-width', type=int, default=432)
-    parser.add_argument('--input-height', type=int, default=368)
-    parser.add_argument('--quant-delay', type=int, default=-1)
+    parser.add_argument('--inputwidth', type=int, default=432)
+    parser.add_argument('--inputheight', type=int, default=368)
+    parser.add_argument('--quantdelay', type=int, default=-1)
     args = parser.parse_args()
 
     modelpath = logpath = './models/train/'
@@ -48,18 +48,18 @@ if __name__ == '__main__':
         raise Exception('gpus <= 0')
 
     # define input placeholder
-    set_network_input_wh(args.input_width, args.input_height)
+    set_network_input_wh(args.inputwidth, args.inputheight)
     scale = 4
 
     if args.model in ['cmu', 'vgg'] or 'mobilenet' in args.model:
         scale = 8
 
     set_network_scale(scale)
-    output_w, output_h = args.input_width // scale, args.input_height // scale
+    output_w, output_h = args.inputwidth // scale, args.inputheight // scale
 
     logger.info('define model+')
     with tf.device(tf.DeviceSpec(device_type="CPU")):
-        input_node = tf.placeholder(tf.float32, shape=(args.batchsize, args.input_height, args.input_width, 3), name='image')
+        input_node = tf.placeholder(tf.float32, shape=(args.batchsize, args.inputheight, args.inputwidth, 3), name='image')
         vectmap_node = tf.placeholder(tf.float32, shape=(args.batchsize, output_h, output_w, 38), name='vectmap')
         heatmap_node = tf.placeholder(tf.float32, shape=(args.batchsize, output_h, output_w, 19), name='heatmap')
 
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     df_valid.reset_state()
     validation_cache = []
 
-    val_image = get_sample_images(args.input_width, args.input_height)
+    val_image = get_sample_images(args.inputwidth, args.input_height)
     logger.debug('tensorboard val image: %d' % len(val_image))
     logger.debug(q_inp)
     logger.debug(q_heat)
@@ -123,16 +123,16 @@ if __name__ == '__main__':
             starter_learning_rate = float(args.lr)
             # learning_rate = tf.train.exponential_decay(starter_learning_rate, global_step,
             #                                            decay_steps=10000, decay_rate=0.33, staircase=True)
-            learning_rate = tf.train.cosine_decay(starter_learning_rate, global_step, args.max_epoch * step_per_epoch, alpha=0.0)
+            learning_rate = tf.train.cosine_decay(starter_learning_rate, global_step, args.maxepoch * step_per_epoch, alpha=0.0)
         else:
             lrs = [float(x) for x in args.lr.split(',')]
             boundaries = [step_per_epoch * 5 * i for i, _ in range(len(lrs)) if i > 0]
             learning_rate = tf.train.piecewise_constant(global_step, boundaries, lrs)
 
-    if args.quant-delay >= 0:
-        logger.info('train using quantized mode, delay=%d' % args.quant-delay)
+    if args.quantdelay >= 0:
+        logger.info('train using quantized mode, delay=%d' % args.quantdelay)
         g = tf.get_default_graph()
-        tf.contrib.quantize.create_training_graph(input_graph=g, quant_delay=args.quant-delay)
+        tf.contrib.quantize.create_training_graph(input_graph=g, quant_delay=args.quantdelay)
 
     # optimizer = tf.train.RMSPropOptimizer(learning_rate, decay=0.0005, momentum=0.9, epsilon=1e-10)
     optimizer = tf.train.AdamOptimizer(learning_rate, epsilon=1e-8)
