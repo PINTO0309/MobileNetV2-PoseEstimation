@@ -223,7 +223,7 @@ if __name__ == '__main__':
                     file_writer.add_summary(summary, curr_epoch)
                     last_log_epoch1 = curr_epoch
 
-            if gs_num - last_gs_num2 >= 2000:
+            if gs_num - last_gs_num2 >= 2000000:
                 # save weights
                 saver.save(sess, os.path.join(modelpath, args.tag, 'model_latest'), global_step=global_step)
 

@@ -72,7 +72,7 @@ if __name__ == '__main__':
     df_valid.reset_state()
     validation_cache = []
 
-    val_image = get_sample_images(args.inputwidth, args.input_height)
+    val_image = get_sample_images(args.inputwidth, args.inputheight)
     logger.debug('tensorboard val image: %d' % len(val_image))
     logger.debug(q_inp)
     logger.debug(q_heat)
@@ -208,7 +208,7 @@ if __name__ == '__main__':
             _, gs_num = sess.run([train_op, global_step])
             curr_epoch = float(gs_num) / step_per_epoch
 
-            if gs_num > step_per_epoch * args.max_epoch:
+            if gs_num > step_per_epoch * args.maxepoch:
                 break
 
             if gs_num - last_gs_num >= 500:
@@ -223,7 +223,7 @@ if __name__ == '__main__':
                     file_writer.add_summary(summary, curr_epoch)
                     last_log_epoch1 = curr_epoch
 
-            if gs_num - last_gs_num2 >= 2000:
+            if gs_num - last_gs_num2 >= 20000000:
                 # save weights
                 saver.save(sess, os.path.join(modelpath, args.tag, 'model_latest'), global_step=global_step)
 

@@ -21,8 +21,8 @@ def main():
         sess.run(tf.global_variables_initializer())
         sess.run(tf.local_variables_initializer())
 
-        saver.restore(sess, 'models/train/test/model-1')
-        saver.save(sess, 'models/train/test/model-finalquant-1')
+        saver.restore(sess, 'models/train/test/model-30437')
+        saver.save(sess, 'models/train/test/model-finalquant-30437')
 
         graphdef = graph.as_graph_def()
         tf.train.write_graph(graphdef, 'models/train/test', 'model-finalquant.pb', as_text=False)
