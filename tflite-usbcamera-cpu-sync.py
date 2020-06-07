@@ -1,10 +1,11 @@
-import cv2, sys
+import cv2
+import sys
 import numpy as np
+import time
 try:
     from tflite_runtime.interpreter import Interpreter
 except:
     from tensorflow.lite.python.interpreter import Interpreter
-import time
 
 
 def getKeypoints(probMap, threshold=0.1):
