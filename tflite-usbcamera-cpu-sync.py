@@ -137,7 +137,10 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 interpreter = tf.lite.Interpreter(model_path="mobilenet_v2_pose_368_432_dm100_weight_quant.tflite")
 # interpreter = tf.lite.Interpreter(model_path="mobilenet_v2_pose_368_432_dm100_integer_quant.tflite")
 interpreter.allocate_tensors()
-#interpreter.set_num_threads(int(num_threads))
+try:
+    interpreter.set_num_threads(int(num_threads))
+except:
+    pass
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 input_shape = input_details[0]['shape']
