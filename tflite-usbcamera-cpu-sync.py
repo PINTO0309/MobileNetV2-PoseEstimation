@@ -147,6 +147,11 @@ interpreter.allocate_tensors()
 try:
     interpreter.set_num_threads(int(num_threads))
 except:
+    print("WARNING: The installed PythonAPI of Tensorflow/Tensorflow Lite runtime does not support Multi-Thread processing.")
+    print("WARNING: It works in single thread mode.")
+    print("WARNING: If you want to use Multi-Thread to improve performance on aarch64/armv7l platforms, please refer to one of the below to implement a customized Tensorflow/Tensorflow Lite runtime.")
+    print("https://github.com/PINTO0309/Tensorflow-bin.git")
+    print("https://github.com/PINTO0309/TensorflowLite-bin.git")
     pass
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
