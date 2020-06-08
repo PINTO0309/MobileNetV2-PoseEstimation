@@ -2,6 +2,7 @@
 **[Caution] The behavior of RraspberryPi+NCS2 is very unstable.**  
 **[Caution] The behavior of Tensorflow Lite+CPU is unstable.**  
 **[Caution] May 06, 2019, The Google Edge TPU program and model are under construction.**  
+**[Info] Jun 08, 2020, I'm tuning the performance of the Tensorflow Lite model significantly.**  
 
 
 ## Introduction
