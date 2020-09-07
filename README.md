@@ -2,7 +2,7 @@
 **[Caution] The behavior of RraspberryPi+NCS2 is very unstable.**  
 **[Caution] The behavior of Tensorflow Lite+CPU is unstable.**  
 **[Caution] May 06, 2019, The Google Edge TPU program and model are under construction.**  
-**[Info] Jun 08, 2020, I'm tuning the performance of the Tensorflow Lite model significantly. https://github.com/PINTO0309/PINTO_model_zoo/tree/master/07_mobilenetv2-poseestimation**  
+**[Info] Jun 08, 2020, I'm tuning the performance of the Tensorflow Lite model significantly. https://github.com/PINTO0309/PINTO_model_zoo/tree/master/007_mobilenetv2-poseestimation**  
 
 
 ## Introduction
